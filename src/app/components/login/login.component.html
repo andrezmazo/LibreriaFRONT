@@ -1,0 +1,93 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="login()">
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error *ngIf="formControls.username.errors?.required">El usuario es requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-error *ngIf="formControls.password.errors?.required">La contraseña es requerida</mat-error>
+        </mat-form-field>
+        <!-- <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button> -->
+        <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+<!-- <div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="login()">
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error *ngIf="formControls.username.errors?.required">El usuario es requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-error *ngIf="formControls.password.errors?.required">La contraseña es requerida</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<!-- <div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="login-form" (ngSubmit)="login()">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Usuario" type="text" formControlName="username" name="username" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Contraseña" type="password" formControlName="password" name="password" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" class="full-width">Iniciar sesión</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<!--
+<div class="p-4" style="position: relative; height: 100%">
+  <div class="row justify-content-center align-items-center" style="height: 100%">
+    <div class="col-6">
+      <div style="text-align: center" class="pb-5 mb-5">
+        <h1 class="degradado">Bienvenido de vuelta!</h1>
+        <p class="subtitulo">bienvenidx al modulo de administracion de las regalias de la editorial</p>
+      </div>
+      <form (ngSubmit)="login()">
+        <div class="form-group">
+          <input placeholder="correo" type="text" id="username" name="username" [(ngModel)]="username"
+            class="form-control inputStyle" />
+        </div>
+        <div class="form-group">
+          <input placeholder="password" type="password" id="password" name="password" [(ngModel)]="password"
+            class="form-control inputStyle" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+  </div>
+</div> -->

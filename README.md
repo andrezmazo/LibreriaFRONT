@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # LibreriaFRONT
+=======
+# Libreria
+>>>>>>> eb00fb0e707ec2dc000f71b4e7e45e33eaac3be6
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
 

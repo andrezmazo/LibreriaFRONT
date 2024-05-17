@@ -31,7 +31,7 @@ export class FilterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {
     // this.form = this.formBuilder.group({
-    //   title: [''],
+    //   title: [null],
     // });
     // this.form.get('title').valueChanges.subscribe((value: Filter) => {
     //   this.filterSubmit.emit(value);

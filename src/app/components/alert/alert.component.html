@@ -1,0 +1,29 @@
+<div class="alert-container">
+  <div mat-dialog-title>
+    @switch (data.type) {
+      @case('error') {
+           <mat-icon class="error">error</mat-icon>
+      }
+      @case('warn') {
+           <mat-icon class="warning">warning</mat-icon>
+      }
+      @case('success') {
+           <mat-icon class="success">check_circle</mat-icon>
+      }
+      @default {
+           <mat-icon class="info">info</mat-icon>
+      }
+    }
+  </div>
+
+  <div mat-dialog-content class="h5">
+    {{ data.message }}
+  </div>
+
+  <div mat-dialog-actions class="d-flex gap-2 justify-content-end">
+    <button mat-flat-button [color]="getConfirmBtnColor()" (click)="onConfirm()">{{ data.confirmButtonText || 'OK' }}</button>
+    @if (data.showCancelButton) {
+      <button mat-raised-button (click)="onCancel()">Cancelar</button>
+    }
+  </div>
+</div>

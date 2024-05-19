@@ -36,9 +36,9 @@ export class ProductService {
     return this.http.delete<null>(`${this.baseUrl}/${idProduct}`);
   }
 
-  update(product: Product) {
+  update(idProduct: number,product: Product) {
     return this.http
-      .put<Product>(`${this.baseUrl}/${product.id}`, product)
+      .put<Product>(`${this.baseUrl}/${idProduct}`, product)
       .pipe(map(this.prepareResponse));
   }
 

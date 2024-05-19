@@ -28,6 +28,7 @@ import {
 } from '@angular/animations';
 import { NgFor, NgIf } from '@angular/common';
 import { debounceTime } from 'rxjs/operators';
+import { ProductEditComponent } from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'app-main',
@@ -114,7 +115,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  askToDelete(product: Product) {
+  openDeleteDialog(product: Product) {
     const dialog = this.dialog.open(AlertComponent, {
       data: {
         message: `¿Está seguro que desea eliminar el producto con título "${product.title}"?`,
@@ -127,6 +128,21 @@ export class MainComponent implements OnInit {
     dialog.afterClosed().subscribe((isConfirmed) => {
       if (isConfirmed) {
         this.deleteProduct(product);
+      }
+    });
+  }
+
+  openEditDialog(product: Product){
+    console.log("aBRE DIALOGO");
+
+    const dialogRef = this.dialog.open(ProductEditComponent, {
+      width: '600px',
+      data: { product }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getProducts(); // Refresh the product list if the product was edited
       }
     });
   }

@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>Editar Producto</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Handle</mat-label>
+      <input matInput formControlName="handle" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>SKU</mat-label>
+      <input matInput formControlName="sku" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Gramos</mat-label>
+      <input matInput formControlName="grams" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Inventario</mat-label>
+      <input matInput formControlName="stock" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="price" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comparación de precio</mat-label>
+      <input matInput formControlName="comparePrice" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Código de barras</mat-label>
+      <input matInput formControlName="barcode" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+</div>

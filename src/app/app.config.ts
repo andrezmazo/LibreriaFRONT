@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import { registerLocaleData } from '@angular/common';
 import { QueryStringService } from './services/query-string-service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeCo)
 export const appConfig: ApplicationConfig = {

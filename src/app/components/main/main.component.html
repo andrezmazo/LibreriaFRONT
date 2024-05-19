@@ -1,62 +1,3 @@
-<!-- <div class="content-wrapper">
-
-  <app-filter (filterSubmit)="getFilters($event)"></app-filter>
-
-  <mat-card class="product-container">
-    <mat-card-header>
-      <mat-card-title>Productos</mat-card-title>
-    </mat-card-header>
-    <div class="table-responsive">
-      <table mat-table [dataSource]="products" matSort multiTemplateDataRows class="mat-elevation-z8">
-        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-          <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-          <td mat-cell *matCellDef="let product"> {{product[column]}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let product" [attr.colspan]="columnsToDisplay.length">
-            <div class="product-detail" [@detailExpand]="product == expandedProduct ? 'expanded' : 'collapsed'">
-              <div class="product-diagram">
-                <div class="product-position"> {{product.handle}} </div>
-                <div class="product-position"> {{product.title}} </div>
-                <div class="product-position"> {{product.sku}} </div>
-                <div class="product-position"> {{product.grams}} </div>
-                <div class="product-position"> {{product.stock}} </div>
-                <div class="product-position"> {{product.price}} </div>
-                <div class="product-position"> {{product.comparePrice}} </div>
-                <div class="product-symbol"> {{product.barcode}} </div>
-                <div class="product-name">
-                  <button mat-icon-button color="primary" aria-label="Editar" title="Editar">
-                    <mat-icon>edit_document</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" aria-label="Eliminar" title="Eliminar"
-                    (click)="askToDelete(product)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-              </div>
-              <div class="product-description">
-                {{product.description}}
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let product; columns: columnsToDisplay;" class="product-row"
-          [class.expanded-row]="expandedProduct === product"
-          (click)="expandedProduct = expandedProduct === product ? null : product">
-        </tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-      </table>
-    </div>
-  </mat-card>
-  <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" aria-label="Selecciona la página de contratos"
-    [pageSize]="rowsPerPage" [length]="totalElements" (page)="handlePaginator($event)">
-  </mat-paginator>
-</div> -->
-
-
 <div class="content-wrapper">
   <app-filter (filterSubmit)="getFilters($event)"></app-filter>
   <mat-card class="product-container">
@@ -66,7 +7,7 @@
     <div class="table-responsive">
       <table mat-table [dataSource]="products" matSort multiTemplateDataRows class="mat-elevation-z8">
         <ng-container *ngFor="let column of columnsToDisplay" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef class="title-column" > {{column}} </th>
+          <th mat-header-cell *matHeaderCellDef class="title-column"> {{column}} </th>
           <td mat-cell *matCellDef="let product"> {{product[column]}} </td>
         </ng-container>
 
@@ -81,13 +22,14 @@
                     <mat-card-subtitle>Acciones</mat-card-subtitle>
                   </mat-card-header>
                   <mat-card-actions>
-                    <button mat-icon-button color="primary" aria-label="Editar" title="Editar">
+                    <button mat-icon-button color="primary" aria-label="Editar" title="Editar"
+                      (click)="openEditDialog(product)">
                       <mat-icon>edit_document</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" aria-label="Eliminar" title="Eliminar"
-                    (click)="askToDelete(product)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+                      (click)="openDeleteDialog(product)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </mat-card-actions>
                 </mat-card>
               </div>
@@ -105,80 +47,3 @@
   <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" aria-label="Selecciona la página de productos"
     [pageSize]="rowsPerPage" [length]="totalElements" (page)="handlePaginator($event)"></mat-paginator>
 </div>
-<!-- //------------------------------------------------------------------------- -->
-
-<!-- <div class="content-wrapper">
-
-  <app-filter (filterSubmit)="getFilters($event)"></app-filter>
-  <mat-card class="product-container">
-    <mat-card-header>
-      <mat-card-title>Productos</mat-card-title>
-    </mat-card-header>
-    <div class="table-responsive">
-      <table mat-table [dataSource]="products" matSort multiTemplateDataRows>
-        <ng-container matColumnDef="handle">
-          <th mat-header-cell *matHeaderCellDef>Handle</th>
-          <td mat-cell *matCellDef="let product">{{ product.handle }}</td>
-        </ng-container>
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef>Title</th>
-          <td mat-cell *matCellDef="let product">{{ product.title }}</td>
-        </ng-container>
-        <ng-container matColumnDef="sku">
-          <th mat-header-cell *matHeaderCellDef>SKU</th>
-          <td mat-cell *matCellDef="let product">{{ product.sku }}</td>
-        </ng-container>
-        <ng-container matColumnDef="grams">
-          <th mat-header-cell *matHeaderCellDef>Gramos</th>
-          <td mat-cell *matCellDef="let product">{{ product.grams }}</td>
-        </ng-container>
-        <ng-container matColumnDef="stock">
-          <th mat-header-cell *matHeaderCellDef>Inventario</th>
-          <td mat-cell *matCellDef="let product">{{ product.stock }}</td>
-        </ng-container>
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef>Precio</th>
-          <td mat-cell *matCellDef="let product">{{ product.price }}</td>
-        </ng-container>
-        <ng-container matColumnDef="comparePrice">
-          <th mat-header-cell *matHeaderCellDef>Comparación de precio</th>
-          <td mat-cell *matCellDef="let product">{{ product.comparePrice }}</td>
-        </ng-container>
-        <ng-container matColumnDef="barcode">
-          <th mat-header-cell *matHeaderCellDef>Codigo de barras</th>
-          <td mat-cell *matCellDef="let product">{{ product.barcode }}</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let product">
-            <button mat-icon-button color="primary" aria-label="Editar" title="Editar">
-              <mat-icon>edit_document</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" aria-label="Eliminar" title="Eliminar" (click)="askToDelete(product)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let product" [attr.colspan]="columnsToDisplay.length">
-            <mat-expansion-panel [expanded]="expandedProduct === product">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Descripción del Producto
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <p>{{ product.description }}</p>
-            </mat-expansion-panel>
-          </td>
-        </ng-container>
-
-
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let product; columns: columnsToDisplay" class="product-row" (click)="toggleRow(product)"></tr>
-        <tr mat-row *matRowDef="let product; columns: ['expandedDetail']"></tr>
-      </table>
-    </div>
-  </mat-card>
-  <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" aria-label="Selecciona la página de contratos" [pageSize]="rowsPerPage" [length]="totalElements" (page)="handlePaginator($event)"></mat-paginator>
-</div> -->

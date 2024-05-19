@@ -1,0 +1,40 @@
+$icon-size: 70px;
+
+.alert-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  max-width: 500px;
+
+  [mat-dialog-actions] {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+    gap: 1rem;
+  }
+}
+
+mat-icon {
+  font-size: $icon-size;
+  width: $icon-size;
+  height: $icon-size;
+
+  &.error {
+    color: rgba(255, 0, 0, 0.6);
+  }
+
+  &.warning {
+    color: rgba(255, 166, 0, 0.6);
+  }
+
+  &.success {
+    color: rgba(0, 128, 0, 0.6);
+  }
+
+  &.info {
+    color: rgba(0, 0, 255, 0.6);
+  }
+}

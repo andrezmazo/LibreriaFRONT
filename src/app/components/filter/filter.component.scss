@@ -1,0 +1,35 @@
+// .card-container{
+//   top: 50%;
+//   left:50%;
+//   transform: translate(-50%,50%);
+//   display: flex;
+//   .filter-form{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     .filter-input{
+//       padding:0 10px 0 10px;
+//       width: 90%;
+//       margin: 0;
+//     }
+//   }
+// }
+
+
+// @media screen and (min-width: 600px) {
+//   .card-container {
+//     max-width: 900px; // Ajusta este valor según sea necesario
+//   }
+
+//   .filter-form {
+//     flex-direction: row;
+//     align-items: center;
+//   }
+
+//   .filter-input {
+//     width: auto;
+//     flex-grow: 1;
+//     margin-right: 10px; // Espacio entre el campo de entrada y los botones de acción
+//   }
+// }
+

@@ -31,13 +31,19 @@ export class UserService {
   }
 
   delete(idUser: number): Observable<null> {
-    return this.http.delete<null>(`${this.baseUrl}/eliminar/${idUser}`);
+    return this.http.delete<null>(`${this.baseUrl}/${idUser}`);
   }
+
+  update(user: User) {
+    return this.http.put<User>(`${this.baseUrl}/${user.id}`, user).pipe(map(this.prepareResponse));
+  }
+
   //Funcion para crear el objeto de usuario
   private prepareBody(user: User) {
     return {
       username: user.username,
       password: user.password,
+      role: user.role,
     };
   }
 

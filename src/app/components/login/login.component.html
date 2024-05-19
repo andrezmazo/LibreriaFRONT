@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content>
       <form (ngSubmit)="login()">
-        <mat-form-field appearance="fill">
+        <!-- <mat-form-field appearance="fill">
           <mat-label>Usuario</mat-label>
           <input matInput formControlName="username" required>
           <mat-error *ngIf="formControls.username.errors?.required">El usuario es requerido</mat-error>
@@ -14,7 +14,8 @@
           <mat-label>Contraseña</mat-label>
           <input matInput type="password" formControlName="password" required>
           <mat-error *ngIf="formControls.password.errors?.required">La contraseña es requerida</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
+
         <!-- <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button> -->
         <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
 

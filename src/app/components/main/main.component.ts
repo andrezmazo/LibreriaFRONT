@@ -18,7 +18,17 @@ import { AlertComponent } from '../alert/alert.component';
 import { DialogData } from '../../models/dialog-data';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { NgFor, NgIf } from '@angular/common';
+import { debounceTime } from 'rxjs/operators';
+import { ProductEditComponent } from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'app-main',
@@ -31,21 +41,33 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
+    NgFor,
+    NgIf,
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss',
+  styleUrls: ['./main.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class MainComponent implements OnInit {
   @ViewChild(MatPaginator) paginador!: MatPaginator;
   filters?: Filter;
   products: Product[] = [];
+  expandedProduct: Product | null = null;
   searchControl = new FormControl('');
   rowsPerPage = 5;
   page = 1;
   totalElements: number = 0;
   expandedElement: Product | null = null;
-
-  columnasParaMostrar: string[] = [
+  columnsToDisplay = [
     'handle',
     'title',
     'sku',
@@ -54,7 +76,6 @@ export class MainComponent implements OnInit {
     'price',
     'comparePrice',
     'barcode',
-    'actions',
   ];
 
   constructor(
@@ -65,6 +86,9 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+      this.getProducts();
+    });
   }
 
   getFilters(filterData: Filter) {
@@ -91,7 +115,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  askToDelete(product: Product) {
+  openDeleteDialog(product: Product) {
     const dialog = this.dialog.open(AlertComponent, {
       data: {
         message: `¿Está seguro que desea eliminar el producto con título "${product.title}"?`,
@@ -101,9 +125,24 @@ export class MainComponent implements OnInit {
       } as DialogData,
     });
 
-    dialog.afterClosed().subscribe(({ isConfirmed }) => {
+    dialog.afterClosed().subscribe((isConfirmed) => {
       if (isConfirmed) {
         this.deleteProduct(product);
+      }
+    });
+  }
+
+  openEditDialog(product: Product){
+    console.log("aBRE DIALOGO");
+
+    const dialogRef = this.dialog.open(ProductEditComponent, {
+      width: '600px',
+      data: { product }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getProducts(); // Refresh the product list if the product was edited
       }
     });
   }

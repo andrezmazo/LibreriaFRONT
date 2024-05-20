@@ -21,7 +21,7 @@
   </div>
 
   <div mat-dialog-actions class="d-flex gap-2 justify-content-end">
-    <button mat-flat-button [color]="getConfirmBtnColor()" (click)="onConfirm()">{{ data.confirmButtonText || 'OK' }}</button>
+    <button mat-raised-button [color]="getConfirmBtnColor()" (click)="onConfirm()">{{ data.confirmButtonText }}</button>
     @if (data.showCancelButton) {
       <button mat-raised-button (click)="onCancel()">Cancelar</button>
     }

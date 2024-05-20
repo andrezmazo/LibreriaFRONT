@@ -1,52 +1,44 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component,EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductService } from '../../services/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Product } from '../../models/product';
+import { ProductService } from '../../services/product.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatFormFieldModule,
-} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-product-edit',
+  selector: 'app-product-create',
+  templateUrl: './product-create.component.html',
   standalone: true,
   imports: [
+    MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
   ],
-
-  templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.scss'],
+  styleUrls: ['./product-create.component.scss']
 })
-export class ProductEditComponent implements OnInit {
-  editForm: FormGroup = new FormGroup({});
-  product?: Product | null = null;
+export class ProductCreateComponent implements OnInit {
+  createForm: FormGroup = new FormGroup({});
+  @Output() cancel = new EventEmitter<void>();
+  @Output() createdProduct = new EventEmitter<void>();
+  showCreateProductSection: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ProductEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { product: Product },
     private productService: ProductService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.createForm();
-    this.loadProductData();
-  }
-
-  createForm(): void {
-    this.editForm = this.fb.group({
+    this.createForm = this.fb.group({
       handle: ['', Validators.required],
       title: ['', Validators.required],
       sku: [0, Validators.required],
@@ -55,32 +47,27 @@ export class ProductEditComponent implements OnInit {
       price: [0, Validators.required],
       comparePrice: [0, Validators.required],
       barcode: [0, Validators.required],
-      description: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
-  loadProductData(): void {
-    if (this.data && this.data.product) {
-      this.editForm.patchValue(this.data.product);
-    }
-  }
-
   onSave(): void {
-    if (this.editForm.valid) {
-      this.productService.update(this.data.product.id, this.editForm.value).subscribe({
+    if (this.createForm.valid) {
+      this.productService.create(this.createForm.value).subscribe({
         next: () => {
-          this.snackBar.open('Producto actualizado exitosamente', 'Cerrar', {
+          this.snackBar.open('Producto creado exitosamente', 'Cerrar', {
             duration: 3000,
           });
-          this.dialogRef.close(true);
+          this.createdProduct.emit();
+          this.createForm.reset()
         },
         error: (error) => {
           if (error.status === 400 && error.error && error.error.message === "El SKU del producto ya está en uso") {
-            this.snackBar.open('El SKU del producto ya está en uso intenta uno que no exista', 'Cerrar', {
+            this.snackBar.open('El SKU del producto ya está en uso. Intente uno que no exista.', 'Cerrar', {
               duration: 8000,
             });
           } else {
-            this.snackBar.open('Error al actualizar el producto', 'Cerrar', {
+            this.snackBar.open('Error al crear el producto', 'Cerrar', {
               duration: 3000,
             });
           }
@@ -98,9 +85,10 @@ export class ProductEditComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.dialogRef.close(false);
-    this.snackBar.open('Edición cancelada', 'Cerrar', {
+    this.cancel.emit();
+    this.snackBar.open('Creación de producto cancelada', 'Cerrar', {
       duration: 3000,
     });
   }
+
 }

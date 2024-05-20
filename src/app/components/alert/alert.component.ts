@@ -24,11 +24,14 @@ export class AlertComponent {
     return 'primary';
   }
 
-  onCancel() {
-    this.dialogRef.close({ isConfirmed: false });
-  }
-
   onConfirm() {
+    console.log("isConfirmed", true);
     this.dialogRef.close({ isConfirmed: true });
   }
+
+  onCancel() {
+    console.log("isConfirmed", false);
+    this.dialogRef.close();
+  }
+
 }

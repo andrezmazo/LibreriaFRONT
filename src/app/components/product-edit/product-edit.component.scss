@@ -1,0 +1,54 @@
+// Variables
+$padding-desktop: 16px;
+$padding-mobile: 8px;
+
+// Mixin para columnas
+
+
+// Estilos principales
+:host {
+  display: block;
+  padding: $padding-desktop;
+  @media (max-width: 768px) {
+    padding: $padding-mobile;
+  }
+}
+
+// Estilos para el formulario
+form {
+  display: contents;
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  mat-form-field {
+    display: block;
+  }
+}
+
+// Estilos para el contenido del diálogo
+.mat-dialog-content {
+  padding: 0;
+}
+
+// Estilos para las acciones del diálogo
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: $padding-desktop;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: $padding-mobile;
+    padding-top: $padding-mobile;
+  }
+
+  button {
+    width: auto;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

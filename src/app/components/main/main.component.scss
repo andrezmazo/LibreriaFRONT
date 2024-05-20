@@ -1,13 +1,10 @@
 @use "../../../styles.scss" as styles;
 
-
-
 .content-wrapper{
   display: flex;
   justify-self: center;
   flex-direction: column;
   box-sizing: border-box;
-
   .product-container {
     box-sizing: border-box;
     padding: 0 8px;

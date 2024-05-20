@@ -137,6 +137,8 @@ export class MainComponent implements OnInit {
 
     dialog.afterClosed().subscribe((isConfirmed) => {
       if (isConfirmed) {
+        console.log("dialog ", isConfirmed);
+
         this.deleteProduct(product);
       } else {
         this.snackBar.open(

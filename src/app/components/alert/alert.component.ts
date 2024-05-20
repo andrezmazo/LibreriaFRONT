@@ -30,7 +30,6 @@ export class AlertComponent {
   }
 
   onCancel() {
-    console.log("isConfirmed", false);
     this.dialogRef.close();
   }
 

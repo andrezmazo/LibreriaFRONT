@@ -1,88 +1,78 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   MatError,
-  MatFormField,
   MatFormFieldModule,
   MatLabel,
 } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, MatCardModule, MatLabel, MatError],
+  imports: [
+    MatFormFieldModule,
+    HttpClientModule,
+    MatCardModule,
+    MatLabel,
+    MatError,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  loginForm!: FormGroup;
+  errorMessage: string | null = null;
 
-  // loginForm: FormGroup;
+  private tokenSubject: BehaviorSubject<string | null>;
+  public token: Observable<string | null>;
 
-  login(): void {
-    console.log('login');
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
+    this.tokenSubject = new BehaviorSubject<string | null>(
+      localStorage.getItem('token')
+    );
+    this.token = this.tokenSubject.asObservable();
   }
 
-  // constructor(
-  //   private formBuilder: FormBuilder,
-  //   private authService: AuthService,
-  //   private router: Router
-  // ) {
-  //   this.loginForm = this.formBuilder.group({
-  //     username: ['', Validators.required],
-  //     password: ['', Validators.required],
-  //   });
-  // }
+  public get tokenValue(): string | null {
+    return this.tokenSubject.value;
+  }
 
-  // get formControls() {
-  //   return this.loginForm.controls;
-  // }
+  login() {
+    const url = 'http://localhost:3000/login';
+    this.username = this.loginForm.value.username;
+    this.password = this.loginForm.value.password;
+    this.http
+      .post<any>(url, { username: this.username, password: this.password })
+      .subscribe({
+        next: (response) => {
+          localStorage.setItem('token', response.token);
+          this.tokenSubject.next(response.token);
+          this.router.navigate(['/main']); // Redirige a la página de /productos
+        },
+        error: (err) => {
+          this.snackBar.open('Error al iniciar sesión', 'Cerrar');
+        },
+      });
+  }
 
-  // login(): void {
-  //   if (this.loginForm.invalid) {
-  //     return;
-  //   }
-
-  //   const username = this.formControls['username'].value;
-  //   const password = this.formControls['password'].value;
-
-  //   this.authService.login(username, password).subscribe(
-  //     () => {
-  //       console.log('Inicio de sesión exitoso');
-  //       this.router.navigate(['/productos']);
-  //     },
-  //     (error) => {
-  //       console.error('Error al iniciar sesión:', error);
-  //       // Manejar errores de inicio de sesión aquí
-  //     }
-  //   );
-  // }
-
-  // -----------------------------------------
-
-  // constructor(private authService: AuthService, private router: Router) {}
-
-  // login(): void {
-  //   // Validar campos de usuario y contraseña, por ejemplo:
-  //   if (!this.username || !this.password) {
-  //     console.log('Por favor, ingrese usuario y contraseña');
-  //     return;
-  //   }
-
-  //   this.authService.login(this.username, this.password).subscribe(
-  //     () => {
-  //       console.log('Inicio de sesión exitoso');
-  //       // Redirigir a la vista de main después del inicio de sesión
-  //       this.router.navigate(['/main']);
-  //     },
-  //     (error) => {
-  //       console.error('Error de inicio de sesión:', error);
-  //       // Manejar el error de inicio de sesión, por ejemplo, mostrar un mensaje de error al usuario
-  //     }
-  //   );
-  // }
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(''),
+    });
+  }
 }

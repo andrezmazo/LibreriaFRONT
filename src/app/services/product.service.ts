@@ -47,16 +47,12 @@ export class ProductService {
       this.queryStringService.convertirDesdeObjeto(filters || {}),
       this.queryStringService.convertirDesdeObjeto(paginatorOptions || {}),
     ];
-    console.log('dentro de service', filters, paginatorOptions)
-
     return this.http.get<PaginatorResponse<Product>>(
       `${this.baseUrl}/list?${queryStrings.join('&')}`
-      // `${this.baseUrl}/list?rowsPerPage=10&page=5`
-
     );
   }
 
-  //Funcion para crear el objeto de usuario
+  //Funcion para crear el objeto de producto
   private prepareBody(product: Product) {
     return {
       handle: product.handle,

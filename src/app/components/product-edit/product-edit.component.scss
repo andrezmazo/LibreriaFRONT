@@ -2,10 +2,6 @@
 $padding-desktop: 16px;
 $padding-mobile: 8px;
 
-// Mixin para columnas
-
-
-// Estilos principales
 :host {
   display: block;
   padding: $padding-desktop;
@@ -14,7 +10,7 @@ $padding-mobile: 8px;
   }
 }
 
-// Estilos para el formulario
+
 form {
   display: contents;
 
@@ -27,12 +23,10 @@ form {
   }
 }
 
-// Estilos para el contenido del diálogo
 .mat-dialog-content {
   padding: 0;
 }
 
-// Estilos para las acciones del diálogo
 .mat-dialog-actions {
   display: flex;
   justify-content: space-between;

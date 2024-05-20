@@ -137,8 +137,6 @@ export class MainComponent implements OnInit {
 
     dialog.afterClosed().subscribe((isConfirmed) => {
       if (isConfirmed) {
-        console.log("dialog ", isConfirmed);
-
         this.deleteProduct(product);
       } else {
         this.snackBar.open(
@@ -151,8 +149,6 @@ export class MainComponent implements OnInit {
   }
 
   openEditDialog(product: Product) {
-    console.log('aBRE DIALOGO');
-
     const dialogRef = this.dialog.open(ProductEditComponent, {
       width: '600px',
       data: { product },
@@ -160,7 +156,7 @@ export class MainComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.getProducts(); // Refresh the product list if the product was edited
+        this.getProducts(); // Obtiene productos
       }
     });
   }

@@ -25,12 +25,10 @@ export class AlertComponent {
   }
 
   onConfirm() {
-    console.log("isConfirmed", true);
     this.dialogRef.close({ isConfirmed: true });
   }
 
   onCancel() {
-    console.log("isConfirmed", false);
     this.dialogRef.close();
   }
 

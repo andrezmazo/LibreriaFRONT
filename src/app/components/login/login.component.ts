@@ -9,8 +9,8 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,11 @@ export class LoginComponent {
   private tokenSubject: BehaviorSubject<string | null>;
   public token: Observable<string | null>;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.tokenSubject = new BehaviorSubject<string | null>(
       localStorage.getItem('token')
     );
@@ -55,24 +59,14 @@ export class LoginComponent {
       .post<any>(url, { username: this.username, password: this.password })
       .subscribe({
         next: (response) => {
-          console.log('Respuesta del servidor:', response.token);
           localStorage.setItem('token', response.token);
           this.tokenSubject.next(response.token);
           this.router.navigate(['/main']); // Redirige a la página de /productos
         },
         error: (err) => {
-          this.showAlert();
+          this.snackBar.open('Error al iniciar sesión', 'Cerrar');
         },
       });
-  }
-
-  showAlert(): void {
-    Swal.fire({
-      title: 'Error',
-      text: this.errorMessage || 'Ha ocurrido un error.',
-      icon: 'error',
-      confirmButtonText: 'Ok',
-    });
   }
 
   ngOnInit() {

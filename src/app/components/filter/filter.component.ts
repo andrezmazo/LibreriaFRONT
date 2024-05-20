@@ -45,7 +45,6 @@ export class FilterComponent implements OnInit {
       return;
     }
     const filterData = this.form.value as Filter;
-    console.log('Filter', filterData);
     this.filterSubmit.emit(filterData);
   }
 

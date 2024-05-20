@@ -1,28 +1,26 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatError,
   MatFormFieldModule,
-  MatLabel,
 } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     MatFormFieldModule,
-    HttpClientModule,
-    MatCardModule,
-    MatLabel,
-    MatError,
+    MatInputModule,
     ReactiveFormsModule,
-    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    HttpClientModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

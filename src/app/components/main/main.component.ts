@@ -30,11 +30,13 @@ import {
 import { NgFor, NgIf } from '@angular/common';
 import { debounceTime } from 'rxjs/operators';
 import { ProductEditComponent } from '../product-edit/product-edit.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
+    NavbarComponent,
     ProductCreateComponent,
     FilterComponent,
     MatCardModule,

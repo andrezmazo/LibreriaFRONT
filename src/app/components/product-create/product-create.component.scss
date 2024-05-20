@@ -1,0 +1,27 @@
+.product-create {
+  gap: 1rem;
+
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 8px;
+  box-shadow: none;
+  form{
+    max-width: 1400px;
+    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box !important;
+    justify-content: center;
+    mat-form-field{
+      // min-width: 400px;
+      // width: ;
+      max-width: 750px;
+      box-sizing: border-box !important;
+    }
+  }
+
+  // @media (max-width: 850px) {
+  //   flex-direction: column;
+  //   flex-wrap: wrap;
+  // }
+}

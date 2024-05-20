@@ -1,41 +1,69 @@
-table {
-  width: 100%;
-}
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
+@use "../../../styles.scss" as styles;
 
-  @media (max-width: 768px) {
-    table {
-      th, td {
-        padding: 1px;
-        font-size: 12px;
+
+
+.content-wrapper{
+  display: flex;
+  justify-self: center;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  // min-height: 100vh;
+
+  .product-container {
+    box-sizing: border-box;
+    padding: 0 8px;
+    overflow-x: auto;
+    margin: 8px;
+    mat-card-header {
+      // padding: 0;
+      display: flex;
+      justify-content: space-between;
+      @media (max-width: 400px) {
+        flex-direction: column;
+      }
+      mat-card-title {
+        font-size: 24px;
+        @media (max-width:850px) {
+          font-size: 18px;
+        }
+      }
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      table {
+        width: 100%;
+      overflow-x: auto;
+
+      }
+
+      @media (max-width: 768px) {
+        table {
+          th,
+          td {
+            font-size: 12px;
+          }
+        }
+      }
+
+      @media (min-width: 769px) {
+        table {
+          th,
+          td {
+            font-size: 14px;
+          }
+        }
       }
     }
   }
-
-  @media (min-width: 769px) {
-    table {
-      th, td {
-        padding: 4px;
-        font-size: 14px;
-      }
-    }
-  }
 }
 
-.mat-card-title {
-  font-size: 1.5em;
-  margin: 0.5em 0;
-
-  @media (max-width: 768px) {
-    font-size: 1.2em;
-  }
-}
 
 
 tr.expanded-detail-row {
   height: 0;
+  cursor: pointer;
 }
 
 tr.element-row:not(.expanded-row):hover {
@@ -48,6 +76,7 @@ tr.element-row:not(.expanded-row):active {
 
 .element-row td {
   border-bottom-width: 0;
+  cursor: pointer;
 }
 
 .product-detail {
@@ -55,8 +84,9 @@ tr.element-row:not(.expanded-row):active {
   display: flex;
 }
 
+
+
 .product-diagram {
-  // min-width: 120px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -75,15 +105,29 @@ tr.element-row:not(.expanded-row):active {
   }
   .product-actions {
     display: flex;
-    mat-card-actions{
+    mat-card-actions {
+      padding: 0;
       flex-direction: column;
     }
-
-    // height: auto;
   }
 }
 
-
-.title-column{
+.title-column {
   text-transform: capitalize;
+}
+
+@media (max-width: 500px) {
+  .product-container {
+    mat-card-header {
+      flex-direction: column;
+    }
+  }
+  .product-actions {
+    width: 100% !important;
+
+    mat-card-actions {
+      flex-direction: row !important;
+      justify-content: center;
+    }
+  }
 }

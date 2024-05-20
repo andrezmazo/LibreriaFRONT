@@ -19,6 +19,7 @@ import { DialogData } from '../../models/dialog-data';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProductCreateComponent } from '../product-create/product-create.component';
 import {
   animate,
   state,
@@ -34,6 +35,7 @@ import { ProductEditComponent } from '../product-edit/product-edit.component';
   selector: 'app-main',
   standalone: true,
   imports: [
+    ProductCreateComponent,
     FilterComponent,
     MatCardModule,
     MatTableModule,
@@ -55,6 +57,11 @@ import { ProductEditComponent } from '../product-edit/product-edit.component';
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
       ),
     ]),
+    trigger('toggleHeight', [
+      state('void', style({ height: '0px', opacity: 0 })),
+      state('*', style({ height: '*', opacity: 1 })),
+      transition('void <=> *', animate('200ms ease-in-out')),
+    ]),
   ],
 })
 export class MainComponent implements OnInit {
@@ -67,7 +74,9 @@ export class MainComponent implements OnInit {
   page = 1;
   totalElements: number = 0;
   expandedElement: Product | null = null;
+  showCreateProductSection: boolean = false;
   columnsToDisplay = [
+    'id',
     'handle',
     'title',
     'sku',
@@ -120,24 +129,33 @@ export class MainComponent implements OnInit {
       data: {
         message: `¿Está seguro que desea eliminar el producto con título "${product.title}"?`,
         showCancelButton: true,
-        confirmButtonText: 'Sí',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
         type: 'warn',
       } as DialogData,
     });
 
     dialog.afterClosed().subscribe((isConfirmed) => {
       if (isConfirmed) {
+        console.log("dialog ", isConfirmed);
+
         this.deleteProduct(product);
+      } else {
+        this.snackBar.open(
+          `Eliminación del producto cancelada`,
+          'Cerrar',
+          { duration: 3000 } // Agrega duración para que se cierre automáticamente
+        );
       }
     });
   }
 
-  openEditDialog(product: Product){
-    console.log("aBRE DIALOGO");
+  openEditDialog(product: Product) {
+    console.log('aBRE DIALOGO');
 
     const dialogRef = this.dialog.open(ProductEditComponent, {
       width: '600px',
-      data: { product }
+      data: { product },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -149,21 +167,36 @@ export class MainComponent implements OnInit {
 
   private deleteProduct(product: Product) {
     this.productService.delete(product.id).subscribe({
-      next: () =>
+      next: () => {
         this.snackBar.open(
           `El producto "${product.title}" fue eliminado exitosamente`,
-          'Cerrar'
-        ),
-      error: () =>
+          'Cerrar',
+          { duration: 3000 } // Agrega duración para que se cierre automáticamente
+        );
+        this.getProducts(); // Llama a getProducts() para actualizar la lista
+      },
+      error: () => {
         this.snackBar.open(
           `Error al borrar el producto "${product.title}"`,
-          'Cerrar'
-        ),
+          'Cerrar',
+          { duration: 3000 } // Agrega duración para que se cierre automáticamente
+        );
+      },
     });
   }
 
   toggleRow(product: Product) {
     this.expandedElement = this.expandedElement === product ? null : product;
+  }
+
+  toggleCreateProductSection() {
+    this.showCreateProductSection = !this.showCreateProductSection;
+  }
+  handleCancelCreateProduct() {
+    this.showCreateProductSection = false;
+  }
+  handleCreateProduct() {
+    this.getProducts()
   }
 
   handlePaginator(paginacion: PageEvent) {

@@ -118,3 +118,28 @@ Esto te redirigirá a la ruta `/main`. en esta ruta se visualiza todos los produ
 # Documentación
 
 Adicionalmente se encuentra la documentación de los endpoints donde se pueden ejecutar los endpoints con en alchivo `documentation.yaml`, en un editor de swagger en linea como `https://editor-next.swagger.io` o en Postman.
+
+# Screenshots
+
+Login 
+![1716420476045](image/README/1716420476045.png)
+
+![1716420499821](image/README/1716420499821.png)
+
+Dashboard
+
+![1716420528484](image/README/1716420528484.png)
+
+Crear nuevo producto
+
+![1716420568229](image/README/1716420568229.png)
+
+Handle de fila
+
+![1716420646508](image/README/1716420646508.png)
+
+Edición de producto
+
+![1716420691292](image/README/1716420691292.png)
+
+Alerta SnackBar

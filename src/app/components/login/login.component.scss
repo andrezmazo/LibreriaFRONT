@@ -1,8 +1,16 @@
 .login-container {
   display: flex;
+  gap: 60px;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
+
+  .login-image{
+    max-width: 100px;
+    min-width: 50px;
+    border-radius: 30px;
+  }
 
   .login-card {
     width: 100%;

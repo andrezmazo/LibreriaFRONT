@@ -1,9 +1,10 @@
-# utor
+# Libreria
+
+## Autor
 
 Andres Zapata Mazo
 contacto: andrez.mazo@gmail.com
 
-# Libreria
 
 ## Descripción
 

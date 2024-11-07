@@ -7,13 +7,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
+    div{
+      gap: 20px;
+      .navbar-img {
+        max-width: 50px;
+        border-radius: 8px;
+      }
+      .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+      }
+    }
   }
 
   button {
@@ -49,12 +55,11 @@
         display: none;
       }
     }
-    button{
+    button {
       @media (max-width: 445px) {
-width: 80px;
-font-size: small;
+        width: 80px;
+        font-size: small;
       }
     }
-
   }
 }
